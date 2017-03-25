@@ -53,7 +53,7 @@ public class TrackerHub : MonoBehaviour {
 		if (waitSpeech) {
 			Camera.main.backgroundColor = new Color32(200, 100, 100, 255);
 		} else {
-			Camera.main.backgroundColor = new Color32(49, 77, 121, 255);
+			Camera.main.backgroundColor = new Color32(0, 0, 0, 255);
 		}
 	}
 	void updateFingers(JSONClass fingers) {

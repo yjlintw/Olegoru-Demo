@@ -18,6 +18,7 @@ public class MarkerGO : MonoBehaviour {
 
 	private AudioSource asource;
 	private Renderer renderer;
+	private ParticleSystem ps;
 	public bool highlight;
 	private bool setAudioFlag = false;
 	public Marker marker {
@@ -27,6 +28,7 @@ public class MarkerGO : MonoBehaviour {
 	void Start() {
 		asource = gameObject.GetComponent<AudioSource>();
 		renderer = gameObject.GetComponent<Renderer>();
+		ps = gameObject.GetComponent<ParticleSystem>();
 	}
 
 	void Update() {
@@ -34,6 +36,7 @@ public class MarkerGO : MonoBehaviour {
 			return;
 		}
 		if (highlight) {
+			ps.startColor = new Color32(168, 157, 54, 255);
 			renderer.material.color = new Color32(200, 200, 0, 255);
 			asource.volume = 0.2f;
 			if (setAudioFlag) {
@@ -44,6 +47,7 @@ public class MarkerGO : MonoBehaviour {
 				setAudioFlag = false;
 			}
 		} else {
+			ps.startColor = new Color32(168, 157, 255, 255);
 			if (asource.clip != null) {
 				asource.volume = 1.0f;
 				if (!asource.isPlaying) {
@@ -76,11 +80,13 @@ public class MarkerGO : MonoBehaviour {
 			if (asource.clip && !asource.isPlaying) {
 				asource.Play();
 			}
-			renderer.enabled = true;
+			ps.enableEmission = true;
+			// renderer.enabled = true;
 		} else {
 			isEnabled = false;
 			asource.Pause();
-			renderer.enabled = false;
+			ps.enableEmission = false;
+			// renderer.enabled = false;
 		}
 	}
 }
